@@ -3,7 +3,7 @@ package cn.tellsea.permission.config.service.impl;
 import cn.tellsea.permission.config.service.ShiroService;
 import cn.tellsea.permission.system.entity.ResourceInfo;
 import cn.tellsea.permission.system.mapper.ResourceInfoMapper;
-import cn.tellsea.walnut.shiro.filter.SessionCheckFilter;
+import cn.tellsea.walnut.shiro.filter.JwtTokenCheckFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -42,7 +42,7 @@ public class ShiroServiceImpl implements ShiroService {
 //        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
         // 自定义拦截器
         LinkedHashMap<String, Filter> filtersMap = new LinkedHashMap<>();
-        filtersMap.put("sessionCheckFilter", new SessionCheckFilter());
+        filtersMap.put("jwtTokenCheckFilter", new JwtTokenCheckFilter());
         shiroFilterFactoryBean.setFilters(filtersMap);
         shiroFilterFactoryBean.setFilterChainDefinitionMap(loadFilterChainDefinitions());
         return shiroFilterFactoryBean;
@@ -64,10 +64,11 @@ public class ShiroServiceImpl implements ShiroService {
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/Captcha.jpg", "anon");
         filterChainDefinitionMap.put("/assets/**", "anon");
-        filterChainDefinitionMap.put("/**", "user,sessionCheckFilter");
+        filterChainDefinitionMap.put("/**", "user,jwtTokenCheckFilter");
 
         Map<String, String> filterChainDefinitionMap2 = new LinkedHashMap<>();
-        filterChainDefinitionMap2.put("/**", "anon");
+        filterChainDefinitionMap.put("/login", "anon");
+        filterChainDefinitionMap2.put("/**", "jwtTokenCheckFilter");
         return filterChainDefinitionMap2;
     }
 

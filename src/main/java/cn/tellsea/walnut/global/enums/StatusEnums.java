@@ -31,6 +31,7 @@ public enum StatusEnums implements BaseEnums {
     LOGIN_SUCCESS(200, "登录成功"),
     NOT_LOGIN(500, "未登录"),
     UNAUTHORIZED(403, "未授权"),
+    TOKEN_NOT_FOUND(500, "回话已过期，请重新登录"),
     NOT_FOUND(404, "请求资源不存在"),
     USER_ALREADY_EXISTS(500, "用户已存在"),
     USER_NOT_FOUND(500, "用户不存在"),
