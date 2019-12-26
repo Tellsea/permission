@@ -67,7 +67,8 @@ public class ShiroServiceImpl implements ShiroService {
         filterChainDefinitionMap.put("/**", "user,jwtTokenCheckFilter");
 
         Map<String, String> filterChainDefinitionMap2 = new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/login", "anon");
+        filterChainDefinitionMap2.put("/login", "anon");
+        filterChainDefinitionMap2.put("/logout", "anon");
         filterChainDefinitionMap2.put("/**", "jwtTokenCheckFilter");
         return filterChainDefinitionMap2;
     }

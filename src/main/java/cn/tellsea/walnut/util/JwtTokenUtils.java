@@ -7,6 +7,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.extern.slf4j.Slf4j;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -59,10 +60,17 @@ public class JwtTokenUtils {
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(TOKEN_SECRET)).withIssuer("auth0").build();
             DecodedJWT jwt = verifier.verify(token);
             log.info("JwtTokenUtils verify 认证通过：{}", jwt.getClaim("username").asString());
-            log.info("JwtTokenUtils verify 过期时间：{}", jwt.getExpiresAt());
+            log.info("JwtTokenUtils verify 过期时间：{}", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(jwt.getExpiresAt()));
             return true;
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public static void main(String[] args) {
+        String token = sign("tellsea");
+        System.out.println(token);
+        boolean verify = verify(token);
+        System.out.println(verify);
     }
 }

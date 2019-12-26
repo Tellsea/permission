@@ -32,13 +32,16 @@ public class JwtTokenCheckFilter extends AccessControlFilter {
         }
         rep.setCharacterEncoding("utf-8");
         rep.setContentType("application/json; charset=utf-8");
-        String token = req.getHeader("token");
+        String token = req.getHeader("Authorization");
         log.info("JwtTokenCheckFilter：Token：{}", token);
         if (StringUtils.isNotEmpty(token)) {
             boolean result = JwtTokenUtils.verify(token);
             if (result) {
                 log.info("JwtTokenCheckFilter：Token验证通过");
                 return true;
+            } else {
+                rep.getWriter().append(JSON.toJSONString(ResponseResult.build(StatusEnums.TOKEN_FAILURE)));
+                return false;
             }
         }
         rep.getWriter().append(JSON.toJSONString(ResponseResult.build(StatusEnums.TOKEN_NOT_FOUND)));

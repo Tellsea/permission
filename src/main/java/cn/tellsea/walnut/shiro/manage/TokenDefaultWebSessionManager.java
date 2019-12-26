@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @author Tellsea
  * @date 2019/12/22
  */
-public class MySessionManager extends DefaultWebSessionManager {
+public class TokenDefaultWebSessionManager extends DefaultWebSessionManager {
 
     private static final String AUTHORIZATION = "Authorization";
 

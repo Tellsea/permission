@@ -1,7 +1,7 @@
 package cn.tellsea.walnut.shiro.config;
 
 import cn.tellsea.permission.config.service.ShiroService;
-import cn.tellsea.walnut.shiro.manage.MySessionManager;
+import cn.tellsea.walnut.shiro.manage.TokenDefaultWebSessionManager;
 import cn.tellsea.walnut.shiro.realm.ShiroRealm;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -71,8 +71,8 @@ public class ShiroConfig {
      */
     @Bean
     public SessionManager sessionManager() {
-        MySessionManager mySessionManager = new MySessionManager();
-        return mySessionManager;
+        TokenDefaultWebSessionManager tokenDefaultWebSessionManager = new TokenDefaultWebSessionManager();
+        return tokenDefaultWebSessionManager;
     }
 
     /** ===================================================================================================== 以下 rememberMe 的配置 */
